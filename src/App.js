@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./Home";
 import SingleMovie from "./SingleMovie";
 import { AppProvider } from "./Context";
+import './App.css'
 
 const App = () => {
   return (
