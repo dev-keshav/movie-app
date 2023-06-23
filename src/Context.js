@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-const API = `http://www.omdbapi.com/?apikey=${process.env.REACT_APP_API_KEY}&s=titanic`;
+const API = `http://www.omdbapi.com/?apikey=${process.env.REACT_APP_API_KEY}`;
 
 const AppContext = React.createContext();
 
@@ -7,6 +7,7 @@ const AppProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [movie, setMovie] = useState([]);
   const [isError, setIsError] = useState({ show: "false", msg: "" });
+  const [query, setQuery] = useState("titanic");
 
   const getMovies = async (url) => {
     try {
@@ -30,11 +31,11 @@ const AppProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    getMovies(API);
-  }, []);
+    getMovies(`${API}&s=${query}`);
+  }, [query]); 
 
   return (
-    <AppContext.Provider value={{ movie, isLoading, isError }}>
+    <AppContext.Provider value={{ movie, isLoading, isError, query, setQuery }}>
       {children}
     </AppContext.Provider>
   );
