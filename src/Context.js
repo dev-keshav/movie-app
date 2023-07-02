@@ -22,7 +22,7 @@ const AppProvider = ({ children }) => {
       } else {
         setIsError({
           show: true,
-          msg: data.error,
+          msg: data.Error,
         });
       }
     } catch (error) {
@@ -31,7 +31,12 @@ const AppProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    getMovies(`${API}&s=${query}`);
+    // Debouncing
+    let timer = setTimeout(() => {
+      getMovies(`${API}&s=${query}`);
+    }, 500)
+
+    return () => clearTimeout(timer)
   }, [query]); 
 
   return (
